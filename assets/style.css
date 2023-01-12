@@ -2,6 +2,10 @@ html.dark {
   background: #151515;
 }
 
+* {
+  user-select: none;
+}
+
 :root.dark {
   --a-primary: 0, 0%, 11%;
   --a-success: 168, 99%, 38%;

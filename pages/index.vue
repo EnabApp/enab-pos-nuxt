@@ -5,7 +5,7 @@
 
         <!-- Numpad -->
         <div w="18rem" flex flex-col gap-4>
-            <AInput v-model="code" placeholder="Enter Code" />
+            <AInput text-2xl v-model="code" placeholder="Enter Code" />
             <div class="grid-row grid-cols-3 justify-items-stretch" gap-2>
                 <ABtn v-for="index, value in 9" @click="code += index" :key="value" h="80px" text-2xl>
                     {{ index }}
