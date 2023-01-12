@@ -1,13 +1,23 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import { config } from "./themeconfig/config";
 export default defineNuxtConfig({
   modules: [
-    "nuxt-headlessui",
+    '@anu-vue/nuxt',
     "@unocss/nuxt",
     "@vueuse/nuxt",
     "@pinia/nuxt",
     "@nuxtjs/color-mode",
   ],
 
-  unocss: config,
+  css: [
+    '@anu-vue/preset-theme-default/dist/style.css',
+    '@/assets/style.css'
+  ],
+
+  colorMode: {
+    preference: 'dark',
+    dataValue: 'dark',
+    classSuffix: '',
+    fallback: 'dark',
+    classPrefix: '',
+  },
 });
