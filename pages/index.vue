@@ -5,17 +5,17 @@
 
         <!-- Numpad -->
         <div w="18rem" flex flex-col gap-4>
-            <AInput placeholder="Enter Code" />
+            <AInput v-model="code" placeholder="Enter Code" />
             <div class="grid-row grid-cols-3 justify-items-stretch" gap-2>
-                <ABtn v-for="index, value in 9" :key="value" h="80px" text-2xl>
+                <ABtn v-for="index, value in 9" @click="code += index" :key="value" h="80px" text-2xl>
                     {{ index }}
                 </ABtn>
 
-                <ABtn color="danger" h="80px" text-2xl>
+                <ABtn ref="backspace" @click="code = code.slice(0, -1)" color="danger" h="80px" text-2xl>
                     <IconBackspace />
                 </ABtn>
 
-                <ABtn h="80px" text-2xl>
+                <ABtn @click="code += 0" h="80px" text-2xl>
                     0
                 </ABtn>
 
@@ -34,3 +34,13 @@
         </div>
     </div>
 </template>
+
+<script setup>
+const code = ref('')
+const backspace = ref(null)
+onLongPress(
+    backspace,
+    () => code.value = '',
+    { modifiers: { prevent: true } }
+)
+</script>
