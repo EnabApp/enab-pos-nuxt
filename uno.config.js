@@ -47,6 +47,10 @@ export default defineConfig({
   theme: {
     colors: {
       tertiary: "#615F5B",
+      secondaryOp: "#1D1D1D",
+      successOp: "#01C29A",
+      dangerOp: "#E85147",
+      warningOp: "#FFD155",
     },
   },
 });

@@ -13,3 +13,18 @@ html.dark {
   --a-danger: 4, 78%, 59%;
   --a-warning: 44, 100%, 67%;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+  border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(127.5, 127.5, 127.5);
+  border-radius: 10px;
+}
