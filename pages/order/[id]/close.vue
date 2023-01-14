@@ -2,7 +2,7 @@
     <NuxtLayout>
         <div flex flex-col gap-8 w-full h-full>
             <!-- HEADER -->
-            <Header :component="TablesQuickAccess" />
+            <Header :component="OrdersQuickAccess" />
 
             <!-- CONTENT -->
             <div grid="~ cols-10" gap-4 place-items-center overflow-y="auto" pr="2">
@@ -16,6 +16,8 @@
                             <IconOrder />
                             <span>{{ item.id }}</span>
                         </div>
+                        <!-- <span text-5xl font-bold leading-1.25rem>{{ item.tableNumber }}</span> -->
+                        <!-- <span font-bold text-tertiary leading-1.25rem>{{ item.delivery ? 'Delivery' : 'Table' }}</span> -->
                     </div>
                 </ABtn>
 
@@ -27,7 +29,7 @@
 </template>
 
 <script setup>
-import { TablesQuickAccess } from '#components'
+import { OrdersQuickAccess } from '#components'
 
 const pendingOrders = [
     {

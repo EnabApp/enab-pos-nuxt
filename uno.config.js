@@ -51,6 +51,7 @@ export default defineConfig({
       successOp: "#01C29A",
       dangerOp: "#E85147",
       warningOp: "#FFD155",
+      infoOp: "#3393FF",
     },
   },
 });

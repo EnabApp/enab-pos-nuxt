@@ -5,7 +5,9 @@
             <span text-sm>0.0.1000</span>
         </div>
         <div flex gap-2>
-            <span text-right>{{ formatted }}</span>
+            <ClientOnly>
+                <span text-right>{{ formatted }}</span>
+            </ClientOnly>
         </div>
     </div>
 </template>
