@@ -36,5 +36,5 @@
 const categoriesStore = useCategories()
 const ordersStore = useOrders()
 const order = ordersStore.getOrder
-const total = ref(1230.00)
+const total = computed(() => order?.order_prodects?.reduce((acc, item) => acc + item.price, 0) ?? 0)
 </script>

@@ -29,6 +29,7 @@
 </template>
 
 <script setup>
+const router = useRouter()
 const isDialogShown = ref(false)
 const tableNumber = ref('')
 const loading = ref(false)
@@ -36,6 +37,7 @@ const loading = ref(false)
 const click = async () => {
     loading.value = true
     await new Promise(res => setTimeout(res, 1000));
+    router.push(`/order/${tableNumber.value}/order`)
     loading.value = false
     isDialogShown.value = false
 }

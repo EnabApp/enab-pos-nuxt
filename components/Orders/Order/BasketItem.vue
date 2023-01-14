@@ -1,8 +1,8 @@
 <template>
     <div ref="itemRef" @click="opened = !opened" flex justify-center flex-col gap-4 w-full h-full :bg="opened ? 'tertiary opacity-30' : 'secondaryOp'" rounded-lg px-4 py-2 cursor-pointer font-bold text-white>
         <div flex justify-between w-full>
-            <span uppercase>1 chicken sub</span>
-            <span>1000.00</span>
+            <div uppercase><span>{{ product.quantity }}</span> <span>{{ product.name }}</span></div>
+            <span>{{ product.price }}</span>
         </div>
 
 
@@ -23,6 +23,13 @@
 </template>
 
 <script setup>
+const props = defineProps({
+    product: {
+        type: Object,
+        required: true
+    }
+})
+console.log(props.product)
 const opened = ref(false)
 const itemRef = ref(null)
 onClickOutside(itemRef, () => opened.value = false)
