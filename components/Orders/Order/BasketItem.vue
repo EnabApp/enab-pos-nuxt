@@ -5,11 +5,20 @@
             <span>1000.00</span>
         </div>
 
-        <div v-if="opened" flex w-full items-center justify-between gap-4 text-sm mb-2>
-            <ABtn @click.stop="() => { }" grow color="danger">حذف</ABtn>
-            <ABtn @click.stop="() => { }" grow color="success">زيادة</ABtn>
-            <ABtn @click.stop="() => { }" grow bg="secondaryOp">نقصان</ABtn>
-        </div>
+
+        <Transition>
+            <div v-show="opened" flex w-full items-center justify-between gap-4 text-sm mb-2>
+                <ABtn @click.stop="() => { }" grow color="danger">
+                    <IconTrash w="6" h="6" />
+                </ABtn>
+                <ABtn @click.stop="() => { }" grow bg="secondaryOp">
+                    <IconPlus w="7" h="7" />
+                </ABtn>
+                <ABtn @click.stop="() => { }" grow bg="secondaryOp">
+                    <IconMinus w="7" h="7" />
+                </ABtn>
+            </div>
+        </Transition>
     </div>
 </template>
 
@@ -18,3 +27,16 @@ const opened = ref(false)
 const itemRef = ref(null)
 onClickOutside(itemRef, () => opened.value = false)
 </script>
+
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+    transition: all 0.15s ease-in-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+    transform: translateY(-20px);
+    opacity: 0;
+}
+</style>
