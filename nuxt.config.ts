@@ -26,6 +26,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       BASE_URL: "http://localhost:8000",
+      VERSION: "0.0.1"
     }
   },
 

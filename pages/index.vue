@@ -32,7 +32,7 @@
             <a href="#">enab.app</a>
             <p>Support@enab.app</p>
             <p>07712695635</p>
-            <p text="tertiary">0.0.1000</p>
+            <p text="tertiary">{{ version }}</p>
         </div>
     </div>
 </template>
@@ -44,6 +44,8 @@ const backspace = ref(null)
 const loading = ref(false)
 const error = ref(false)
 const { signIn, fetchUser } = useAuth()
+const version = useRuntimeConfig().public.VERSION
+
 onLongPress(
     backspace,
     () => code.value = '',
@@ -55,7 +57,6 @@ const login = async () => {
     await new Promise(res => setTimeout(res, 1000));
     loading.value = false
     const result = await signIn(code.value, "123456")
-    console.log(result)
     if (result) {
         router.push('/tables')
     } else {

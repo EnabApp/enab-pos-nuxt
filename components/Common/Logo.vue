@@ -17,7 +17,6 @@
 const auth = useAuth()
 auth.fetchUser()
 
-
 const getRoleTitle = computed(() => {
     if (auth.isManager) return 'Manager'
     if (auth.isWaiter) return 'Waiter'

@@ -28,7 +28,7 @@
         </div>
 
         <!-- Title -->
-        <span font-bold text-3xl>{{ categoriesStore.getSelected?.name ?? 'Categories' }}</span>
+        <span font-bold text-3xl text-white>{{ categoriesStore.getSelected?.name ?? 'Categories' }}</span>
     </div>
 </template>
 

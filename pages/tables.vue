@@ -28,6 +28,7 @@
 
 <script setup>
 import { TablesQuickAccess } from '#components'
+const auth = useAuth()
 const ordersStore = useOrders()
 await ordersStore.fetch()
 

@@ -29,7 +29,6 @@ const props = defineProps({
         required: true
     }
 })
-console.log(props.product)
 const opened = ref(false)
 const itemRef = ref(null)
 onClickOutside(itemRef, () => opened.value = false)

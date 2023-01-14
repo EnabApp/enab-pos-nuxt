@@ -26,6 +26,8 @@ export const useAuth = defineStore('auth', {
             }
             tokenCookie.value = data?.value.access_token
 
+            await new Promise(res => setTimeout(res, 500));
+
             return true
         },
 
