@@ -28,10 +28,11 @@
         </div>
 
         <!-- Title -->
-        <span font-bold text-3xl>Categories</span>
+        <span font-bold text-3xl>{{ categoriesStore.getSelected?.name ?? 'Categories' }}</span>
     </div>
 </template>
 
 <script setup>
+const categoriesStore = useCategories()
 const total = ref(1230.00)
 </script>

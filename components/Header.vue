@@ -1,7 +1,7 @@
 <template>
     <div flex justify-between items-center>
         <!-- Logo -->
-        <CommonLogo />
+        <LazyCommonLogo />
 
         <!-- Quick Access -->
         <div flex gap-4>
@@ -18,6 +18,7 @@
 </template>
 
 <script setup>
+const auth = useAuth()
 const router = useRouter()
 const props = defineProps({
     component: {
@@ -32,6 +33,8 @@ const logout = async () => {
     loadingLogout.value = true
     await new Promise(res => setTimeout(res, 1000));
     loadingLogout.value = false
+    auth.signOut()
     router.push('/')
 }
+
 </script>

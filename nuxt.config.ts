@@ -1,5 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  ssr: false,
+
   modules: [
     '@anu-vue/nuxt',
     "@unocss/nuxt",
@@ -20,4 +22,15 @@ export default defineNuxtConfig({
     fallback: 'dark',
     classPrefix: '',
   },
+
+  runtimeConfig: {
+    public: {
+      BASE_URL: "http://localhost:8000",
+    }
+  },
+
+  imports: {
+    dirs: ['stores']
+  }
+
 });
