@@ -16,13 +16,13 @@
             <div flex flex-col>
                 <span text-sm font-bold>Table</span>
                 <span text-white p-3 rounded-lg font-bold text-xl bg-secondaryOp w-200px>
-                    0
+                    {{ order?.table_number ?? '#' }}
                 </span>
             </div>
             <div flex flex-col>
                 <span text-sm font-bold>Order</span>
                 <span text-white p-3 rounded-lg font-bold text-xl bg-secondaryOp w-200px>
-                    {{ $route.params.id }}
+                    {{ order?.id ?? '#' }}
                 </span>
             </div>
         </div>
@@ -34,5 +34,7 @@
 
 <script setup>
 const categoriesStore = useCategories()
+const ordersStore = useOrders()
+const order = ordersStore.getOrder
 const total = ref(1230.00)
 </script>
