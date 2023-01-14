@@ -5,14 +5,13 @@
     <ABtn @click="goTo('close')" h="70px" text-2xl :bg="route.path.endsWith('close') ? 'infoOp' : 'secondaryOp'" :text="route.path.endsWith('close') ? 'white' : 'tertiary'">
         Close
     </ABtn>
-    <ABtn h="70px" text-2xl text-tertiary>
-        Change Table
-    </ABtn>
-    <ABtn h="70px" text-2xl text-tertiary>
-        Void
+    <OrdersQuickAccessTransferTable />
+    <ABtn @click="voidOrder()" h="70px" text-2xl text-tertiary>
+        <IconLoading v-if="loadingVoid" />
+        <span v-else>Void</span>
     </ABtn>
     <ABtn @click="router.push('/tables')" h="70px" text-2xl text-tertiary>
-        Home
+        <IconHome />
     </ABtn>
 </template>
 
@@ -23,5 +22,13 @@ const router = useRouter()
 const orderId = route.params.id
 const goTo = (path) => {
     router.push(`/order/${orderId}/${path}`)
+}
+
+const loadingVoid = ref(false)
+const voidOrder = async () => {
+    loadingVoid.value = true
+    await new Promise(res => setTimeout(res, 1000));
+    loadingVoid.value = false
+    router.push('/tables')
 }
 </script>

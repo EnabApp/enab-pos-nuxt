@@ -7,7 +7,7 @@
             <!-- CONTENT -->
             <div grid="~ cols-10" gap-4 place-items-center overflow-y="auto" pr="2">
                 <!-- Generate Pending Orders -->
-                <ABtn v-for="item in pendingOrders" :key="item" w-full h-full aspect-square :bg="item.delivery ? 'warningOp' : 'successOp'">
+                <ABtn @click="$router.push(`/order/${item.id}/order`)" v-for="item in pendingOrders" :key="item" w-full h-full aspect-square :bg="item.delivery ? 'warningOp' : 'successOp'">
                     <div flex flex-col justify-center w-full mt-4 gap-10>
                         <span text-5xl font-bold leading-1.25rem h="20px">
                             {{ item.tableNumber }}
