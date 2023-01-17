@@ -2,8 +2,8 @@ import { acceptHMRUpdate, defineStore } from "pinia";
 
 export const useDashboard = defineStore("dashboard", {
   state: () => ({
-    tabs: ["overview", "categories", "products", "prders", "users", "settings"],
-    selected: "overview",
+    tabs: ["Overview", "Categories", "Products", "Orders", "Users", "Settings"],
+    selected: "Overview",
   }),
   getters: {
     getTabs: (state) => state.tabs,
