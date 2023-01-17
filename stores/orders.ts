@@ -67,7 +67,7 @@ export const useOrders = defineStore('order', {
         async addProduct(product: any) {
             const order = this.order
             const isProductAdded = this.checkProductInOrder(product)
-
+            console.log(order)
             if (isProductAdded) {
                 this.increaseProductQuantity(product)
                 return
@@ -96,10 +96,9 @@ export const useOrders = defineStore('order', {
             const orderProduct = order?.order_products.find((orderProduct: any) => orderProduct.product_id == product.id)
             orderProduct.quantity++
 
-            const { data, pending, error, refresh } = await useApi(`orders/add-product`, 'post', {
+            const { data, pending, error, refresh } = await useApi(`orders/increase-quantity`, 'put', {
                 product_id: product.id,
                 order_id: order?.id,
-                quantity: orderProduct.quantity,
             })
         },
 
@@ -108,10 +107,9 @@ export const useOrders = defineStore('order', {
             const orderProduct = order?.order_products.find((orderProduct: any) => orderProduct.product_id == product.id)
             orderProduct.quantity--
 
-            const { data, pending, error, refresh } = await useApi(`orders/add-product`, 'post', {
+            const { data, pending, error, refresh } = await useApi(`orders/decrease-quantity`, 'put', {
                 product_id: product.id,
                 order_id: order?.id,
-                quantity: orderProduct.quantity,
             })
         }
     },

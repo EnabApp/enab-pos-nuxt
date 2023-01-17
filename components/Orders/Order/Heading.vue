@@ -36,5 +36,9 @@
 const categoriesStore = useCategories()
 const ordersStore = useOrders()
 const order = ordersStore.getOrder
-const total = computed(() => order?.order_products?.reduce((acc, item) => acc + item.price, 0) ?? 0)
+const total = ref(0)
+
+watch(() => order?.order_products, () => {
+    total.value = order?.order_products?.reduce((acc, item) => acc + item.price, 0) ?? 0
+}, { deep: true, immediate: true })
 </script>
