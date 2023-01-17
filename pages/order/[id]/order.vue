@@ -22,5 +22,7 @@
 import { OrdersQuickAccess } from '#components'
 const { params } = useRoute()
 const ordersStore = useOrders()
+
 await ordersStore.fetchOrder(params.id)
+
 </script>

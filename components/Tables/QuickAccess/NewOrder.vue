@@ -3,6 +3,11 @@
         New Order
     </ABtn>
 
+    <ABtn @click="deliveryOrder()" h="70px" text-2xl text-tertiary :disabled="deliveryLoading">
+        <IconLoading v-if="deliveryLoading" />
+        <span v-else>Delivery Order</span>
+    </ABtn>
+
     <ADialog v-model="isDialogShown" w="24rem">
         <div flex flex-col gap-4 p-14>
             <AInput text-4xl v-model="tableNumber" placeholder="Table Number" />
@@ -29,15 +34,21 @@
 </template>
 
 <script setup>
-const router = useRouter()
 const isDialogShown = ref(false)
 const tableNumber = ref('')
 const loading = ref(false)
+const deliveryLoading = ref(false)
+const ordersStore = useOrders()
 
 const click = async () => {
     loading.value = true
-    await new Promise(res => setTimeout(res, 1000));
+    await ordersStore.newOrder(tableNumber.value, 1)
     loading.value = false
-    router.push(`/order/${tableNumber.value}/order`)
+}
+
+const deliveryOrder = async () => {
+    deliveryLoading.value = true
+    await ordersStore.newOrder(null, 2)
+    deliveryLoading.value = false
 }
 </script>

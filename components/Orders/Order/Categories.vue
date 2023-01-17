@@ -5,10 +5,10 @@
             <IconBack />
         </ABtn>
 
-        <ABtn v-for="item in categoriesStore.getSelected.products" :key="item" whitespace="!normal" w-full h-full aspect-video>
-            <div break-words overflow-x-hidden flex flex-col font-bold>
-                <span>{{ item.name }} </span>
-                <span text-gray-400>{{ item.price }}</span>
+        <ABtn @click="addProduct(item)" v-for="item in categoriesStore.getSelected.products" :key="item" whitespace="!normal" w-full h-full aspect-video>
+            <div break-words overflow-x-hidden flex flex-col>
+                <span text-lg font-600>{{ item.name }} </span>
+                <span text-gray-400 text-sm>{{ usePrice(item.price) }}</span>
             </div>
         </ABtn>
 
@@ -29,8 +29,14 @@
 
 <script setup>
 const categoriesStore = useCategories()
+const ordersStore = useOrders()
 if (!categoriesStore.getCategories.length) categoriesStore.fetch()
 const blankCategories = computed(() => 48 - categoriesStore.getCategories.length ? 48 - categoriesStore.getCategories.length : 0)
 
 const blankItems = computed(() => 47 - categoriesStore.getSelected?.products.length ? 47 - categoriesStore.getSelected?.products.length : 0)
+
+
+const addProduct = (item) => {
+    ordersStore.addProduct(item)
+}
 </script>

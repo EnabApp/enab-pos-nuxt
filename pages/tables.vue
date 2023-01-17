@@ -20,7 +20,8 @@
                 </ABtn>
 
                 <!-- Generate Blank Orders -->
-                <ABtn v-for="item in blankOrders" :key="item" w-full h-full aspect-square bg-secondaryOp />
+                <TablesBlankOrder v-for="item in blankOrders" :key="item" />
+
             </div>
         </div>
     </NuxtLayout>
@@ -30,7 +31,7 @@
 import { TablesQuickAccess } from '#components'
 const auth = useAuth()
 const ordersStore = useOrders()
-await ordersStore.fetch()
+ordersStore.fetch()
 
 const blankOrders = computed(() => ordersStore.getOrders.length <= 40 ? 40 - ordersStore.getOrders.length : 0)
 </script>
