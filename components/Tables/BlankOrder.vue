@@ -1,8 +1,20 @@
 <template>
-    <ABtn @click="isDialogShown = true" h="70px" text-2xl text-tertiary>
-        Void Table
-    </ABtn>
+    <!-- Buttons -->
+    <div v-if="state" p-1 justify-center flex flex-col gap-1 w-full h-full aspect-square border border-secondaryOp rounded-lg>
+        <ABtn @click="isDialogShown = true" grow>Dine-in</ABtn>
+        <ABtn @click="deliveryOrder()" grow color="warning" variant="light">
+            <IconLoading v-if="deliveryLoading" w-24px h-24px />
+            <span v-else>Delivery</span>
+        </ABtn>
+        <ABtn grow @click="toggle()" variant="light" text-tertiary>
+            <IconBack w-24px h-24px />
+        </ABtn>
+    </div>
 
+    <!-- Blank -->
+    <ABtn @click="toggle()" v-else w-full h-full aspect-square bg-secondaryOp></ABtn>
+
+    <!-- Dine-in Dialog -->
     <ADialog v-model="isDialogShown" w="24rem">
         <div flex flex-col gap-4 p-14>
             <AInput text-4xl v-model="tableNumber" placeholder="Table Number" />
@@ -21,7 +33,7 @@
 
                 <ABtn @click="click()" color="success" h="80px" text-3xl :disabled="loading">
                     <IconLoading v-if="loading" />
-                    <IconTrash v-else />
+                    <IconCheck v-else />
                 </ABtn>
             </div>
         </div>
@@ -29,29 +41,24 @@
 </template>
 
 <script setup>
+const [state, toggle] = useToggle(false)
+const ordersStore = useOrders()
+
 const isDialogShown = ref(false)
 const tableNumber = ref('')
 const loading = ref(false)
-const ordersStore = useOrders()
 
 const click = async () => {
     loading.value = true
-    const order = ordersStore.getOrderByTableNumber(tableNumber.value)
-
-    // Checking Table
-    if (!order) {
-        alert('Table not found')
-        return
-    }
-
-    // Checking Order
-    if (await ordersStore.voidOrder(order.id)) {
-        isDialogShown.value = false
-    } else {
-        alert('Order not found')
-    }
-
-    tableNumber.value = ''
+    await ordersStore.newOrder(tableNumber.value, 1)
     loading.value = false
+}
+
+
+const deliveryLoading = ref(false)
+const deliveryOrder = async () => {
+    deliveryLoading.value = true
+    await ordersStore.newOrder(null, 2)
+    deliveryLoading.value = false
 }
 </script>

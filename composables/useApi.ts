@@ -1,4 +1,4 @@
-export const useApi = async (path: string, method = 'GET', body = null) => {
+export const useApi = async (path: string, method = 'GET', body: any = null) => {
     const access_token = useCookie('access_token').value
     const baseURL = useRuntimeConfig().public.BASE_URL
     const { data, pending, error, refresh } = await useAsyncData(

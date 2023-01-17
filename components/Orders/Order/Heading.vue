@@ -4,7 +4,7 @@
             <div flex flex-col>
                 <span text-sm font-bold>Total</span>
                 <span text-warningOp p-3 rounded-lg font-bold text-xl bg-secondaryOp w-200px>
-                    {{ total }}
+                    {{ usePrice(total) }}
                 </span>
             </div>
             <div flex flex-col>
@@ -16,7 +16,7 @@
             <div flex flex-col>
                 <span text-sm font-bold>Table</span>
                 <span text-white p-3 rounded-lg font-bold text-xl bg-secondaryOp w-200px>
-                    {{ order?.table_number ?? '#' }}
+                    {{ order?.table_number ?? 'Delivery' }}
                 </span>
             </div>
             <div flex flex-col>
@@ -36,5 +36,5 @@
 const categoriesStore = useCategories()
 const ordersStore = useOrders()
 const order = ordersStore.getOrder
-const total = computed(() => order?.order_prodects?.reduce((acc, item) => acc + item.price, 0) ?? 0)
+const total = computed(() => order?.order_products?.reduce((acc, item) => acc + item.price, 0) ?? 0)
 </script>

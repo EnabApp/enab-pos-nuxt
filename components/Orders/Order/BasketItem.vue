@@ -1,8 +1,13 @@
 <template>
-    <div ref="itemRef" @click="opened = !opened" flex justify-center flex-col gap-4 w-full h-full :bg="opened ? 'tertiary opacity-30' : 'secondaryOp'" rounded-lg px-4 py-2 cursor-pointer font-bold text-white>
+    <div ref="itemRef" @click="opened = !opened" flex justify-center flex-col gap-4 w-full h-content :bg="opened ? 'tertiary opacity-30' : 'secondaryOp'" rounded-lg px-4 py-2 cursor-pointer font-600 text-white>
         <div flex justify-between w-full>
-            <div uppercase><span>{{ product.quantity }}</span> <span>{{ product.name }}</span></div>
-            <span>{{ product.price }}</span>
+            <div><span>{{ product.quantity }}</span> <span uppercase>{{ product.name }}</span></div>
+            <div flex flex-col text-right>
+                <span>{{ usePrice(product.price * product.quantity) }}</span>
+                <Transition>
+                    <span v-show="opened" text-sm font-normal>{{ usePrice(product.price) }}</span>
+                </Transition>
+            </div>
         </div>
 
 
