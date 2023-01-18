@@ -18,11 +18,9 @@
             </ACard>
         </div>
     </div>
-    <ADialog v-model="categoriesStore.isDialogShown" title="Dialog title" subtitle="Chocolate cake tiramisu donut" text="Ice cream sweet pie pie dessert sweet danish. Jelly jelly beans cupcake jelly-o chocolate bonbon chocolate bar." persistent>
+    <ADialog v-model="categoriesStore.isDialogShown" title="New Category" persistent>
         <div class="a-card-body">
-            <ABtn variant="" class="text-sm" @click="categoriesStore.isDialogShown = false">
-                Close
-            </ABtn>
+            <CategoriesNewCategory />
         </div>
     </ADialog>
 

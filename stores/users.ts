@@ -1,26 +1,25 @@
 import { acceptHMRUpdate, defineStore } from "pinia";
 
-export const useCategories = defineStore("categories", {
+export const useUsers = defineStore("users", {
   state: () => ({
-    categories: [],
-    selected: null,
+    users: [],
     name: "",
-    description: "",
+    role: "",
+    code: "",
     isDrawerShown: false,
     createError: null as string | null,
   }),
   getters: {
-    getCategories: (state) => state.categories,
-    getSelected: (state) => state.selected,
+    getUsers: (state) => state.users,
     getCreateError: (state) => state.createError,
   },
   actions: {
     async fetch() {
-      const { data, pending, error, refresh } = await useApi("categories");
+      const { data, pending, error, refresh } = await useApi("users");
       if (error.value) {
         console.log(error.value);
       }
-      this.categories = data.value.data;
+      this.users = data.value.data;
     },
 
     validation(Boolean = false) {
@@ -28,8 +27,8 @@ export const useCategories = defineStore("categories", {
         this.createError = "Name is required";
         return false;
       }
-      if (!this.description) {
-        this.createError = "Description is required";
+      if (!this.code) {
+        this.createError = "code is required";
         return false;
       }
       return true;
@@ -37,14 +36,11 @@ export const useCategories = defineStore("categories", {
 
     async create() {
       if (!this.validation(true)) return false;
-      const { data, pending, error, refresh } = await useApi(
-        "categories",
-        "POST",
-        {
-          name: this.name,
-          description: this.description,
-        }
-      );
+      const { data, pending, error, refresh } = await useApi("Users", "POST", {
+        name: this.name,
+        email: this.code,
+        role: this.role,
+      });
       if (error.value) {
         this.createError = error.value;
         return;
@@ -52,16 +48,15 @@ export const useCategories = defineStore("categories", {
       console.log(data.value);
       this.createError = null;
       this.name = "";
-      this.description = "";
       this.isDrawerShown = false;
       this.fetch();
     },
 
     async remove(id: number) {
-      this.categories = this.categories.filter((category) => category.id != id);
+      this.users = this.users.filter((category) => category.id != id);
 
       const { data, pending, error, refresh } = await useApi(
-        `categories/${id}`,
+        `users/${id}`,
         "DELETE"
       );
       if (error.value) {
@@ -73,5 +68,5 @@ export const useCategories = defineStore("categories", {
 });
 
 if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useCategories, import.meta.hot));
+  import.meta.hot.accept(acceptHMRUpdate(useUsers, import.meta.hot));
 }
