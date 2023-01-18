@@ -8,4 +8,7 @@
 
 <script setup>
 import { DashboardMain } from '#components'
+definePageMeta({
+    middleware: 'auth'
+})
 </script>

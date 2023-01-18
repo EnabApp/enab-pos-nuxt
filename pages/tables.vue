@@ -29,6 +29,9 @@
 
 <script setup>
 import { TablesQuickAccess } from '#components'
+definePageMeta({
+    middleware: 'auth'
+})
 const auth = useAuth()
 const ordersStore = useOrders()
 ordersStore.fetch()

@@ -6,5 +6,4 @@
             
 <script setup>
 const dashboard = useDashboard();
-console.log(dashboard.selected);
 </script>
