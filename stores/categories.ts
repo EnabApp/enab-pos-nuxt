@@ -20,6 +20,8 @@ export const useCategories = defineStore("categories", {
     },
 
     async remove(id: number) {
+      this.categories = this.categories.filter((category) => category.id != id);
+
       const { data, pending, error, refresh } = await useApi(
         `categories/${id}`,
         "DELETE"
@@ -27,7 +29,7 @@ export const useCategories = defineStore("categories", {
       if (error.value) {
         console.log(error.value);
       }
-      this.fetch();
+      // this.fetch();
     },
   },
 });

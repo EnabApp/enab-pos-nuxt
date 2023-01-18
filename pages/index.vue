@@ -38,6 +38,7 @@
 </template>
 
 <script setup>
+
 const router = useRouter()
 const code = ref('')
 const backspace = ref(null)
