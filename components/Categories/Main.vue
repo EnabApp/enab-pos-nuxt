@@ -8,8 +8,8 @@
                     <p class="text-sm">
                         {{ item.name }}
                     </p>
-                    <ABtn @click="categoriesStore.remove(item.id)" h="7px" text-2xl text-dangerOp>
-                        delete
+                    <ABtn @click="categoriesStore.updete(item.id)" h="7px" text-2xl text-dangerOp>
+                        updete
                     </ABtn>
                     <ABtn @click="categoriesStore.remove(item.id)" h="7px" text-2xl text-dangerOp>
                         delete
@@ -20,7 +20,7 @@
     </div>
     <ADialog v-model="categoriesStore.isDialogShown" title="Dialog title" subtitle="Chocolate cake tiramisu donut" text="Ice cream sweet pie pie dessert sweet danish. Jelly jelly beans cupcake jelly-o chocolate bonbon chocolate bar." persistent>
         <div class="a-card-body">
-            <ABtn variant="sds" class="text-sm" @click="categoriesStore.isDialogShown = false">
+            <ABtn variant="" class="text-sm" @click="categoriesStore.isDialogShown = false">
                 Close
             </ABtn>
         </div>
