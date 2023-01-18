@@ -6,6 +6,8 @@ export const useCategories = defineStore("categories", {
     selected: null,
     name: "",
     description: "",
+    isLoding: false,
+    isDialogShown: false,
     isDrawerShown: false,
     createError: null as string | null,
   }),
@@ -13,6 +15,7 @@ export const useCategories = defineStore("categories", {
     getCategories: (state) => state.categories,
     getSelected: (state) => state.selected,
     getCreateError: (state) => state.createError,
+    getLodeing: (state) => state.isLoding,
   },
   actions: {
     async fetch() {
@@ -53,8 +56,14 @@ export const useCategories = defineStore("categories", {
       this.createError = null;
       this.name = "";
       this.description = "";
-      this.isDrawerShown = false;
+      this.isDialogShown = false;
       this.fetch();
+    },
+
+    edit(item: any) {
+      this.isDrawerShown = true;
+      this.name = item.name;
+      this.description = item.description;
     },
 
     async remove(id: number) {

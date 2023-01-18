@@ -7,6 +7,7 @@
         <ProductsMain v-if="dashboard.selected == 'Products'" />
         <CategoriesMain v-if="dashboard.selected == 'Categories'" />
         <UsersMain v-if="dashboard.selected == 'Users'" />
+        <OverviewMain v-if="dashboard.selected == 'Overview'" />
 
     </div>
 </template>

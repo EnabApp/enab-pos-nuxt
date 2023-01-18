@@ -11,8 +11,7 @@
             <!-- Home -->
 
             <ABtn v-if="router.currentRoute.value.name === 'dashboard'" @click="router.push('/tables')" h="70px" text-2xl text-tertiary>
-                <IconLoading v-if="loadingLogout" />
-                <IconHome v-else />
+                <IconHome />
             </ABtn>
             <!-- Logout -->
             <ABtn @click="logout()" h="70px" text-2xl text-dangerOp :disabled="loadingLogout">
