@@ -12,11 +12,13 @@
     </div>
 
     <!-- Blank -->
-    <ABtn @click="toggle()" v-else w-full h-full aspect-square bg-secondaryOp></ABtn>
+    <ABtn @click="toggle()" v-else w-full h-full aspect-square>
+    </ABtn>
 
     <!-- Dine-in Dialog -->
     <ADialog v-model="isDialogShown" w="24rem">
         <div flex flex-col gap-4 p-14>
+            <span v-if="error" text-sm text-danger>Table already in use.</span>
             <AInput text-4xl v-model="tableNumber" placeholder="Table Number" />
             <div class="grid-row grid-cols-3 justify-items-stretch" gap-2>
                 <ABtn v-for="index, value in 9" @click="tableNumber += index" :key="value" h="80px" text-3xl>
@@ -47,10 +49,14 @@ const ordersStore = useOrders()
 const isDialogShown = ref(false)
 const tableNumber = ref('')
 const loading = ref(false)
+const error = ref(false)
 
 const click = async () => {
     loading.value = true
-    await ordersStore.newOrder(tableNumber.value, 1)
+    const result = await ordersStore.newOrder(tableNumber.value, 1)
+    if (!result) {
+        error.value = true
+    }
     loading.value = false
 }
 

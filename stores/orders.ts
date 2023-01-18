@@ -4,14 +4,17 @@ export const useOrders = defineStore('order', {
     state: () => ({
         orders: [],
         order: null,
+
+        calculator: 0,
     }),
     getters: {
         getOrders: (state) => state.orders,
         getOrder: (state) => state.order,
-        getOrderByTableNumber: (state) => (tableNumber: number) => {
+        getOrderByTableNumber: (state) => (tableNumber: any) => {
             const order = state.orders.find((order: any) => order.table_number == tableNumber)
             return order
-        }
+        },
+        getCalculator: (state) => state.calculator,
     },
     actions: {
         async fetch() {
@@ -37,10 +40,17 @@ export const useOrders = defineStore('order', {
 
         async newOrder(tableNumber: any = null, type: number) {
             const router = useRouter();
+
+            if (!(tableNumber == null)) {
+                const checkIfTableNumberExists = this.orders.find(order => order.table_number == tableNumber)
+                if (checkIfTableNumberExists) return false;
+            }
+
             const { data, pending, error, refresh } = await useApi('orders', 'post', {
                 table_number: tableNumber,
                 type: type
             })
+
             if (error.value) {
                 return false;
             }
@@ -67,7 +77,7 @@ export const useOrders = defineStore('order', {
         async addProduct(product: any) {
             const order = this.order
             const isProductAdded = this.checkProductInOrder(product)
-            console.log(order)
+
             if (isProductAdded) {
                 this.increaseProductQuantity(product)
                 return
@@ -93,25 +103,60 @@ export const useOrders = defineStore('order', {
 
         async increaseProductQuantity(product: any) {
             const order = this.order
-            const orderProduct = order?.order_products.find((orderProduct: any) => orderProduct.product_id == product.id)
+            if (!(product.id == null)) product.product_id = product.id
+            const orderProduct = order?.order_products.find((orderProduct: any) => orderProduct.product_id == product.product_id)
             orderProduct.quantity++
 
-            const { data, pending, error, refresh } = await useApi(`orders/increase-quantity`, 'put', {
-                product_id: product.id,
+            const { data, pending, error, refresh } = await useApi(`orders/change-product-quantity`, 'put', {
+                product_id: product.product_id,
                 order_id: order?.id,
+                type: 'add'
             })
         },
 
         async decreaseProductQuantity(product: any) {
             const order = this.order
-            const orderProduct = order?.order_products.find((orderProduct: any) => orderProduct.product_id == product.id)
+            if (!(product.id == null)) product.product_id = product.id
+            const orderProduct = order?.order_products.find((orderProduct: any) => orderProduct.product_id == product.product_id)
             orderProduct.quantity--
 
-            const { data, pending, error, refresh } = await useApi(`orders/decrease-quantity`, 'put', {
-                product_id: product.id,
+            const { data, pending, error, refresh } = await useApi(`orders/change-product-quantity`, 'put', {
+                product_id: product.product_id,
                 order_id: order?.id,
             })
-        }
+        },
+
+        async removeProduct(product: any) {
+            const order = this.order
+            order.order_products = order?.order_products.filter((orderProduct: any) => orderProduct.product_id !== product.product_id)
+            const { data, pending, error, refresh } = await useApi(`orders/remove-product`, 'delete', {
+                product_id: product.product_id,
+                order_id: order?.id,
+            })
+        },
+
+        async transferTable(oldTableNumber: any, tableNumber: any) {
+            const oldOrder = this.orders.find(order => order.table_number == oldTableNumber)
+            if (!oldOrder) return false;
+
+            const checkNewTableNumberExists = this.orders.find(order => order.table_number == tableNumber)
+            if (checkNewTableNumberExists) return false;
+
+            const { data, pending, error, refresh } = await useApi(`orders/transfer`, 'put', {
+                table_number: tableNumber,
+                order_id: oldOrder.id,
+            })
+
+            if (error.value) {
+                console.log(error.value)
+                return false;
+            }
+
+            oldOrder.table_number = tableNumber
+            this.order.table_number = tableNumber
+
+            return true;
+        },
     },
 })
 

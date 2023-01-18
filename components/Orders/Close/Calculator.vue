@@ -14,14 +14,16 @@
                 0
             </ABtn>
 
-            <ABtn @click="amount += '00'" h="80px" text-3xl>
-                00
+            <ABtn @click="amount += '000'" h="80px" text-3xl>
+                000
             </ABtn>
         </div>
     </div>
 </template>
 
 <script setup>
+const ordersStore = useOrders()
+
 const router = useRouter()
 const amount = ref('')
 const backspace = ref(null)
@@ -30,4 +32,6 @@ onLongPress(
     () => amount.value = '',
     { modifiers: { prevent: true } }
 )
+
+watch(() => amount.value, () => ordersStore.calculator = amount.value)
 </script>

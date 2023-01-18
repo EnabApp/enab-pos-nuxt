@@ -54,9 +54,9 @@ onLongPress(
 
 const login = async () => {
     loading.value = true
-    await new Promise(res => setTimeout(res, 1000));
-    loading.value = false
+    // await new Promise(res => setTimeout(res, 1000));
     const result = await signIn(code.value, "123456")
+    loading.value = false
     if (result) {
         router.push('/tables')
     } else {

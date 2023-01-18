@@ -33,6 +33,8 @@ const isDialogShown = ref(false)
 const tableNumber = ref('')
 const loading = ref(false)
 
+const ordersStore = useOrders()
+
 const oldNumber = ref('')
 const newNumber = ref('')
 
@@ -46,7 +48,7 @@ const click = async () => {
     newNumber.value = tableNumber.value
 
     loading.value = true
-    await new Promise(res => setTimeout(res, 1000));
+    await ordersStore.transferTable(oldNumber.value, newNumber.value)
     loading.value = false
     isDialogShown.value = false
 }

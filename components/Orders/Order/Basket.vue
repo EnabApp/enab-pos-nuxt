@@ -14,5 +14,5 @@
 
 <script setup>
 const ordersStore = useOrders()
-const products = computed(() => ordersStore.getOrder?.order_products)
+const products = computed(() => ordersStore.order?.order_products)
 </script>

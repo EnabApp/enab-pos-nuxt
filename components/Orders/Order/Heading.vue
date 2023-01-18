@@ -10,7 +10,7 @@
             <div flex flex-col>
                 <span text-sm font-bold>Opened By</span>
                 <span text-white p-3 rounded-lg font-bold text-xl bg-secondaryOp w-200px>
-                    Hussam al-Rassam
+                    {{ openedBy }}
                 </span>
             </div>
             <div flex flex-col>
@@ -40,4 +40,6 @@ const order = ordersStore.getOrder
 //     total.value = order?.order_products?.reduce((acc, item) => acc + item.price * item.quantity, 0) ?? 0
 // }, { deep: true, immediate: true })
 const total = computed(() => order?.order_products?.reduce((acc, item) => acc + item.price * item.quantity, 0) ?? 0)
+
+const openedBy = computed(() => order?.order_users.find((user) => user.status === 1)?.name ?? 'Unknown')
 </script>

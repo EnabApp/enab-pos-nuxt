@@ -20,4 +20,10 @@
 <script setup>
 import { OrdersQuickAccess } from '#components'
 
+const { params } = useRoute()
+const ordersStore = useOrders()
+
+if (!ordersStore.getOrder) await ordersStore.fetchOrder(params.id)
+
+if (ordersStore.getOrders.length <= 0) ordersStore.fetch()
 </script>
