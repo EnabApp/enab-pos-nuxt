@@ -4,6 +4,7 @@ export const useCategories = defineStore("categories", {
   state: () => ({
     categories: [],
     selected: null,
+    isDrawerShown: false,
   }),
   getters: {
     getCategories: (state) => state.categories,
