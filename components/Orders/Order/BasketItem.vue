@@ -13,13 +13,13 @@
 
         <Transition>
             <div v-show="opened" flex w-full items-center justify-between gap-4 text-sm mb-2>
-                <ABtn @click.stop="() => { }" grow color="danger">
+                <ABtn @click.stop="ordersStore.removeProduct(product)" grow color="danger">
                     <IconTrash w="6" h="6" />
                 </ABtn>
-                <ABtn @click.stop="() => { }" grow bg="secondaryOp">
+                <ABtn @click.stop="ordersStore.increaseProductQuantity(product)" grow bg="secondaryOp">
                     <IconPlus w="7" h="7" />
                 </ABtn>
-                <ABtn @click.stop="() => { }" grow bg="secondaryOp">
+                <ABtn @click.stop="ordersStore.decreaseProductQuantity(product)" grow bg="secondaryOp" :disabled="product.quantity <= 1">
                     <IconMinus w="7" h="7" />
                 </ABtn>
             </div>
@@ -28,6 +28,8 @@
 </template>
 
 <script setup>
+const ordersStore = useOrders()
+
 const props = defineProps({
     product: {
         type: Object,
@@ -37,6 +39,7 @@ const props = defineProps({
 const opened = ref(false)
 const itemRef = ref(null)
 onClickOutside(itemRef, () => opened.value = false)
+
 </script>
 
 <style scoped>

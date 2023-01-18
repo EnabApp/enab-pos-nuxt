@@ -5,6 +5,7 @@
 
     <ADialog v-model="isDialogShown" w="24rem">
         <div flex flex-col gap-4 p-14>
+            <span v-if="error" text-sm text-danger>Table already in use.</span>
             <AInput text-4xl v-model="tableNumber" placeholder="New Table" />
             <div class="grid-row grid-cols-3 justify-items-stretch" gap-2>
                 <ABtn v-for="index, value in 9" @click="tableNumber += index" :key="value" h="80px" text-3xl>
@@ -29,14 +30,22 @@
 </template>
 
 <script setup>
+const router = useRouter()
 const isDialogShown = ref(false)
 const tableNumber = ref('')
 const loading = ref(false)
+const error = ref(false)
+
+const ordersStore = useOrders()
 
 const click = async () => {
     loading.value = true
-    await new Promise(res => setTimeout(res, 1000));
+    const result = await ordersStore.transferTable(ordersStore.getOrder?.table_number, tableNumber.value)
     loading.value = false
+    if (!result) {
+        error.value = true
+        return false
+    }
     isDialogShown.value = false
 }
 </script>

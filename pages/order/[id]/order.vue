@@ -25,4 +25,6 @@ const ordersStore = useOrders()
 
 await ordersStore.fetchOrder(params.id)
 
+if (ordersStore.getOrders.length <= 0) ordersStore.fetch()
+
 </script>

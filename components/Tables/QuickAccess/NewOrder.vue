@@ -10,6 +10,7 @@
 
     <ADialog v-model="isDialogShown" w="24rem">
         <div flex flex-col gap-4 p-14>
+            <span v-if="error" text-sm text-danger>Table already in use.</span>
             <AInput text-4xl v-model="tableNumber" placeholder="Table Number" />
             <div class="grid-row grid-cols-3 justify-items-stretch" gap-2>
                 <ABtn v-for="index, value in 9" @click="tableNumber += index" :key="value" h="80px" text-3xl>
@@ -39,10 +40,14 @@ const tableNumber = ref('')
 const loading = ref(false)
 const deliveryLoading = ref(false)
 const ordersStore = useOrders()
+const error = ref(false)
 
 const click = async () => {
     loading.value = true
-    await ordersStore.newOrder(tableNumber.value, 1)
+    const result = await ordersStore.newOrder(tableNumber.value, 1)
+    if (!result) {
+        error.value = true
+    }
     loading.value = false
 }
 
