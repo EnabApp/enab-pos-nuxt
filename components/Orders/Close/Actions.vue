@@ -3,10 +3,10 @@
         <ABtn>
             Discount
         </ABtn>
-        <ABtn>
+        <ABtn @click="close">
             Close
         </ABtn>
-        <ABtn>
+        <ABtn >
             Print & Close
         </ABtn>
     </div>
